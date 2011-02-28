@@ -25,6 +25,7 @@ def get_model(model_filename):
     model = {}
     svm_type = model_file.readline() # don't need this
     kernel_type = model_file.readline().split()[1]
+#    degree = model_file.readline().split()[]
     gamma = model_file.readline().split()[1]
     coef = model_file.readline().split()[1]
     nr_class = model_file.readline().split()[1] # should always be 2
@@ -32,7 +33,7 @@ def get_model(model_filename):
     rho = model_file.readline().split()[1]
     labels = model_file.readline().split()[1:2] # shd always be 0 1
     nr_sv = model_file.readline().split() # list w/ # sv for each label
-    nr_sv.remove("nr_sv")
+    #nr_sv.remove("nr_sv")
     sv = model_file.readline() # should always be SV
 
     count = 0
@@ -48,6 +49,34 @@ def get_model(model_filename):
         count += 1
     return [model, kernel_type, gamma, coef, total_sv, rho, nr_sv]
 
+def predict(test_vectors, model_list):
+    sys_data = {}
+    kernel_function_option = model_list[1]
+    model = model_list[0]
+    kernel_function = ""
+    if kernel_function_option == "linear":
+        kernel_function = get_linear
+    elif kernel_function_option == "polynomial":
+        kernel_function = get_poly
+    elif kernel_function_option == "rbf":
+        kernel_function = get_rbf
+    elif kernel_function_option == "sigmoid":
+        kernel_function = get_sigmoid
+
+    for index in test_vectors:
+        sys_data[index] = {}
+        vector = test_vectors[index]
+        sv_sum = 0
+        for sv in model:
+            weight = model[sv]["_weight_"]
+            support_vector = model[sv]
+            support_vector.remove("_weight_") # remove extra feature so can calc fn
+            #k = kernel_function(vector, support_vector, model_list[2],\
+            model_list[3], model_list[4], 
+
+# 
+#def get_linear(instance_vector, model_list):
+    
 
 #### main
 if len(sys.argv) < 3:
@@ -57,3 +86,4 @@ if len(sys.argv) < 3:
 test_vectors = get_test_vectors(sys.argv[1])
 model_list = get_model(sys.argv[2])
 print model_list
+#sys_data = predict(test_vectors, model_list)
