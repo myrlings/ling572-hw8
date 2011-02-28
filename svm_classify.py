@@ -27,45 +27,55 @@ def get_model(model_filename):
     kernel_type = None
     degree = None
     gamma = None
+    nr_class = None
     coef = None
     total_sv = None
     rho = None
     nr_sv = None
     
-    line = model_file.readline.split()
+    line = model_file.readline().split()
     variable = line[0]
     while  variable != "SV":   #should exit test sequence as early as possible every time
+        print "variable="+variable
         if variable == "svm_type":
             svm_type = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
         if variable == "kernel_type":
             kernel_type = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
-        elif variable == "degree":
-            line = model_file.readline.split()
+        if variable == "degree":
+            line = model_file.readline().split()
             variable = line[0]
             degree = line[1]
-        elif variable == "gamma":
+        if variable == "gamma":
             gamma = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
-        elif variable == "coef":
+        if variable == "nr_class":
+            nr_class = line[1]
+            line = model_file.readline().split()
+            variable = line[0]
+        if variable == "coef0":
             coef = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
-        elif variable == "total_sv":
+        if variable == "total_sv":
             total_sv = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
-        elif variable == "rho":
+        if variable == "rho":
             rho = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
-        elif variable == "nr_sv":
+        if variable == "label":
+            label = line[1:len(line)]
+            line = model_file.readline().split()
+            variable = line[0]
+        if variable == "nr_sv":
             nr_sv = line[1]
-            line = model_file.readline.split()
+            line = model_file.readline().split()
             variable = line[0]
     sv = line[0]    
 #     kernel_type = model_file.readline().split()[1]
@@ -91,7 +101,7 @@ def get_model(model_filename):
             fv = element.split(":")
             model[count][fv[0]] = fv[1]
         count += 1
-    return [model, kernel_type, gamma, coef, total_sv, rho, nr_sv]
+    return [model, kernel_type, degree, gamma, nr_class, coef, total_sv, rho, nr_sv]
 
 def predict(test_vectors, model_list):
     sys_data = {}
