@@ -31,7 +31,6 @@ def get_model(model_filename):
     coef = None
     total_sv = None
     rho = None
-    label = None
     nr_sv = None
     
     line = model_file.readline().split()
@@ -102,7 +101,7 @@ def get_model(model_filename):
             fv = element.split(":")
             model[count][fv[0]] = int(fv[1])
         count += 1
-    return [model, kernel_type, degree, gamma, nr_class, coef, total_sv, rho, label, nr_sv]
+    return [model, kernel_type, degree, gamma, nr_class, coef, total_sv, rho, nr_sv]
 
 def predict(test_vectors, model_list):
     sys_data = {}
@@ -127,8 +126,8 @@ def predict(test_vectors, model_list):
             support_vector = model[sv]
             del support_vector["_weight_"] # remove extra feature so can calc fn
             del vector["_label_"] # remove extra feature so can calc fn
-            k = kernel_function(vector, support_vector, model_list[2],\
-            model_list[3], model_list[5]) 
+            k = kernel_function(vector, support_vector, float(model_list[2]),\
+            float(model_list[3]), float(model_list[5])) 
             support_vector["_weight_"] = weight
             vector["_label_"] = true_label
             k = k * weight
@@ -139,16 +138,29 @@ def predict(test_vectors, model_list):
             expected = 0
         else:
             expected = 1
-        sys_data[index] = [true_label, expected, sv_sum]
+        sys_data[index] = [true_label, str(expected), sv_sum]
     return sys_data
 
-# 
+# return dot product of the instance vector and the support vector
+# ignore degree, gamma, and coef
 def get_linear(instance_vector, support_vector, degree, gamma, coef):
     summation = 0
     for f in instance_vector:
         if f in support_vector: # only care about non-zero in both vectors
             summation += instance_vector[f] * support_vector[f]
     return summation
+
+# return result of polynomial function on the vectors
+# (gamma*u'*v + coef0)^degree
+def get_poly(instance_vector, support_vector, degree, gamma, coef):
+    summation = 0
+    for f in instance_vector:
+        if f in support_vector: 
+            summation += instance_vector[f] * support_vector[f]
+    num = gamma * summation
+    num = num + coef
+    num = num ** degree
+    return num
 
 #### main
 if len(sys.argv) < 3:
