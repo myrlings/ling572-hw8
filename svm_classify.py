@@ -31,6 +31,7 @@ def get_model(model_filename):
     coef = None
     total_sv = None
     rho = None
+    label = None
     nr_sv = None
     
     line = model_file.readline().split()
@@ -101,7 +102,7 @@ def get_model(model_filename):
             fv = element.split(":")
             model[count][fv[0]] = int(fv[1])
         count += 1
-    return [model, kernel_type, degree, gamma, nr_class, coef, total_sv, rho, nr_sv]
+    return [model, kernel_type, degree, gamma, nr_class, coef, total_sv, rho, label, nr_sv]
 
 def predict(test_vectors, model_list):
     sys_data = {}
