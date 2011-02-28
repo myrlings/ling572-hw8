@@ -32,7 +32,8 @@ def get_model(model_filename):
     rho = None
     nr_sv = None
     
-
+    line = model_file.readline.split()
+    variable = line[0]
     while  variable != "SV":   #should exit test sequence as early as possible every time
         if variable == "svm_type":
             svm_type = line[1]
