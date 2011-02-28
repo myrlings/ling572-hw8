@@ -38,10 +38,10 @@ def get_model(model_filename):
     count = 0
     for line in model_file:
         line_array = line.split()
-        label = line_array[0]
-        line_array.remove(label)
+        weight = line_array[0]
+        line_array.remove(weight)
         model[count] = {}
-        model[count]["_label_"] = label
+        model[count]["_weight_"] = weight
         for element in line_array:
             fv = element.split(":")
             model[count][fv[0]] = fv[1]
