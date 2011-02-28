@@ -24,17 +24,60 @@ def get_model(model_filename):
     model_file = open(model_filename, 'r')
     model = {}
     svm_type = model_file.readline() # don't need this
-    kernel_type = model_file.readline().split()[1]
-#    degree = model_file.readline().split()[]
-    gamma = model_file.readline().split()[1]
-    coef = model_file.readline().split()[1]
-    nr_class = model_file.readline().split()[1] # should always be 2
-    total_sv = model_file.readline().split()[1]
-    rho = model_file.readline().split()[1]
-    labels = model_file.readline().split()[1:2] # shd always be 0 1
-    nr_sv = model_file.readline().split() # list w/ # sv for each label
-    #nr_sv.remove("nr_sv")
-    sv = model_file.readline() # should always be SV
+    kernel_type = None
+    degree = None
+    gamma = None
+    coef = None
+    total_sv = None
+    rho = None
+    nr_sv = None
+    
+
+    while  variable != "SV":   #should exit test sequence as early as possible every time
+        if variable == "svm_type":
+            svm_type = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        if variable == "kernel_type":
+            kernel_type = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        elif variable == "degree":
+            line = model_file.readline.split()
+            variable = line[0]
+            degree = line[1]
+        elif variable == "gamma":
+            gamma = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        elif variable == "coef":
+            coef = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        elif variable == "total_sv":
+            total_sv = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        elif variable == "rho":
+            rho = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+        elif variable == "nr_sv":
+            nr_sv = line[1]
+            line = model_file.readline.split()
+            variable = line[0]
+    sv = line[0]    
+#     kernel_type = model_file.readline().split()[1]
+# #    degree = model_file.readline().split()[]
+#     gamma = model_file.readline().split()[1]
+#     coef = model_file.readline().split()[1]
+#     nr_class = model_file.readline().split()[1] # should always be 2
+#     total_sv = model_file.readline().split()[1]
+#     rho = model_file.readline().split()[1]
+#     labels = model_file.readline().split()[1:2] # shd always be 0 1
+#     nr_sv = model_file.readline().split() # list w/ # sv for each label
+#     #nr_sv.remove("nr_sv")
+#     sv = model_file.readline() # should always be SV
 
     count = 0
     for line in model_file:
