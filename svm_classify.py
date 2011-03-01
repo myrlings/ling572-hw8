@@ -178,9 +178,8 @@ def get_rbf(instance_vector, support_vector, degree, gamma, coef):
         v = support_vector[vector]
     else:
         v = 0
-    summation += math.pow((u - v),2)
-  num = (-1*gamma * summation)
-  num = (math.exp(num))
+    summation += -1*gamma * math.pow((u - v),2)
+  num = (math.exp(summation))
   return num# exp(-gamma*|u-v|^2) -- this one looks different, please tell me if i interpreted it wrongly
 
 def print_sys(sys_data, sys_filename):
