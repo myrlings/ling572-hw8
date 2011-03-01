@@ -177,11 +177,17 @@ def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
 # exp(-gamma*|u-v|^2) -- this one looks different, please tell me if i interpreted it wrongly
 def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   summation = 0
-  for f in instance_vector:
-      for g in support_vector: # don't only care about non-zero in both vectors
-          u = instance_vector[f]
-          v = support_vector[g]
-          summation += math.pow((instance_vector[f] - support_vector[f]),2)
+  all_vectors = instance_vector.extend(support_vector)
+  for vector in instance_vector:
+    if vector in instance_vector:
+        u = instance_vector[vector]
+    else:
+        u = 0
+    if vector in support_vector:
+        v = support_vector[vector]
+    else:
+        v = 0
+    summation += math.pow((u - v),2)
   num = (-1*gamma * summation)
   num = (math.exp(num))
   return num
