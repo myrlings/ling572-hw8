@@ -178,7 +178,7 @@ def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
 def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   summation = 0
   all_vectors = instance_vector.extend(support_vector)
-  for vector in instance_vector:
+  for vector in all_vectors:
     if vector in instance_vector:
         u = instance_vector[vector]
     else:
