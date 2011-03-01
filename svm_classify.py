@@ -143,6 +143,7 @@ def predict(test_vectors, model_list):
 
 # return dot product of the instance vector and the support vector
 # ignore degree, gamma, and coef
+# u'*v
 def get_linear(instance_vector, support_vector, degree, gamma, coef):
     summation = 0
     for f in instance_vector:
@@ -173,12 +174,16 @@ def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
   num = tanh(num)
   return num
 
-# exp(-gamma*|u-v|^2)
+# exp(-gamma*|u-v|^2) -- this one looks different, please tell me if i interpreted it wrongly
 def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   summation = 0
   for f in instance_vector:
       if f in support_vector: # only care about non-zero in both vectors
-          summation += instance_vector[f] * support_vector[f]
+          u = instance_vector[f]
+          v = support_vector[f]
+          summation += (instance_vector[f] - support_vector[f]) ** 2
+  num = (-1*gamma * summation)
+  num = (math.e(num))
   return num
 
 #### main
