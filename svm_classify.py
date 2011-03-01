@@ -178,7 +178,7 @@ def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
 def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   summation = 0
   for f in instance_vector:
-      for f in support_vector: # only care about non-zero in both vectors
+      for f in support_vector: # don't only care about non-zero in both vectors
           u = instance_vector[f]
           v = support_vector[f]
           summation += math.pow((instance_vector[f] - support_vector[f]),2)
