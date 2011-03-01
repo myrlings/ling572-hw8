@@ -162,6 +162,26 @@ def get_poly(instance_vector, support_vector, degree, gamma, coef):
     num = num ** degree
     return num
 
+# tanh(gamma*u'*v + coef0)
+def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
+  summation = 0
+  for f in instance_vector:
+      if f in support_vector: # only care about non-zero in both vectors
+          summation += instance_vector[f] * support_vector[f]
+  num = gamma * summation
+  num = num + coef 
+  num = tanh(num)
+  return num
+
+# exp(-gamma*|u-v|^2)
+def get_rbf(instance_vector, support_vector, degree, gamma, coef):
+  summation = 0
+  for f in instance_vector:
+      if f in support_vector: # only care about non-zero in both vectors
+          summation += instance_vector[f] * support_vector[f]
+
+return num
+
 #### main
 if len(sys.argv) < 3:
     print "Please give arguments: test_data model_file sys_output"
