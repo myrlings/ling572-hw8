@@ -1,0 +1,15 @@
+Matt Todd
+Caleb Barr
+LING 572 HW #8
+3/1/2011
+
+table 1
+
+        gamma   coef0   degree  nSV     train_acc   test_acc    q2_test_acc
+linear  --      --      --      535     .997        .95         .95
+poly    1       0       2       792     .997        .92         .92
+poly    .1      .5      2       775     .997        .965        .965
+rbf     .5      --      --      1798    .997        .5
+sigmoid .5      -.2     --      1214    .537        .405        .405
+
+data files for the table are in folders row0, ..., row4
