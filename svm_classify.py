@@ -187,7 +187,7 @@ def print_sys(sys_data, sys_filename):
     sys_file = open(sys_filename, 'w')
 
     for vector in sorted(sys_data.keys()):
-        sys_file.write("--index:" + str(vector) + "-- ")
+        #sys_file.write("--index:" + str(vector) + "-- ")
         sys_file.write(sys_data[vector][0] + " ")
         sys_file.write(sys_data[vector][1] + " ")
         sys_file.write(str(sys_data[vector][2]) + "\n")
