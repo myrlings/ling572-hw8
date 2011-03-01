@@ -179,8 +179,7 @@ def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   for f in instance_vector:
       if f in support_vector: # only care about non-zero in both vectors
           summation += instance_vector[f] * support_vector[f]
-
-return num
+  return num
 
 #### main
 if len(sys.argv) < 3:
