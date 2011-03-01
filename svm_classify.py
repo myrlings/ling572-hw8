@@ -46,9 +46,9 @@ def get_model(model_filename):
             line = model_file.readline().split()
             variable = line[0]
         if variable == "degree":
+            degree = line[1]
             line = model_file.readline().split()
             variable = line[0]
-            degree = line[1]
         if variable == "gamma":
             gamma = line[1]
             line = model_file.readline().split()
