@@ -1,0 +1,8 @@
+
+Confusion matrix for the testing data:
+row is the truth, column is the system output
+
+	0	1
+0	99	1
+1	6	94
+Testing accuracy: 0.965
