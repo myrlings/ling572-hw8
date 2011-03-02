@@ -163,24 +163,28 @@ def get_sigmoid(instance_vector, support_vector, degree, gamma, coef):
   num = math.tanh(num)
   return num
 
+# exp(-gamma*|u-v|^2)
 def get_rbf(instance_vector, support_vector, degree, gamma, coef):
   summation = 0
-  all_vectors = []
-  #concatenating key sets, casting to a set to remove duplicates
-  all_vectors.append(instance_vector.keys().extend(support_vector.keys())) 
-  all_vectors = set(all_vectors)
+  instance_keys = set(instance_vector.keys())
+  support_keys = set(support_vector.keys())
+  all_vectors = instance_keys.union(support_keys)
   for vector in all_vectors:
+    both_nonzero = True
     if vector in instance_vector:
         u = instance_vector[vector]
     else:
         u = 0
+        both_nonzero = False
     if vector in support_vector:
         v = support_vector[vector]
     else:
         v = 0
-    summation += -1*gamma * math.pow((u - v),2)
-  num = (math.exp(summation))
-  return num# exp(-gamma*|u-v|^2) -- this one looks different, please tell me if i interpreted it wrongly
+        both_nonzero = False
+    summation += math.pow((u - v),2)
+  num =  -1*gamma * summation
+  num = (math.exp(num))
+  return num
 
 def print_sys(sys_data, sys_filename):
     sys_file = open(sys_filename, 'w')

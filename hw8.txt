@@ -9,7 +9,7 @@ table 1
 linear  --      --      --      535     .997        .95         .95
 poly    1       0       2       792     .997        .92         .92
 poly    .1      .5      2       775     .997        .965        .965
-rbf     .5      --      --      1798    .997        .5
+rbf     .5      --      --      1798    .997        .5          .5
 sigmoid .5      -.2     --      1214    .537        .405        .405
 
 data files for the table are in folders row0, ..., row4
